@@ -61,6 +61,21 @@ const App = () => {
     )
     setFiltered(filter)
   }
+
+  const handleDelete = (person) => {
+    if(window.confirm(`Delete ${person.name}?`)) {
+      PersonService
+        .remove(person.id)
+        .then(response => {
+          PersonService
+          .getAll()
+          .then(persons => {
+            setPersons(persons)
+            setFiltered(persons)
+          })
+        })
+    }
+  }
   
   return (
     <div>
@@ -78,7 +93,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons persons={filtered}/>
+      <Persons persons={filtered} handleDelete={handleDelete}/>
     </div>
   )
 
