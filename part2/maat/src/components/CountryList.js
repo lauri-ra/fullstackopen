@@ -48,7 +48,6 @@ const CountryList = ({ countries, handleClick }) => {
             <Country country={countries[0]}/>
         )
     }
-
 }
 
 export default CountryList
