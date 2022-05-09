@@ -4,10 +4,10 @@ const Person = ({ person }) => {
     )
   }
 
-const Persons = ({filtered}) => {
+const Persons = ({persons}) => {
     return (
       <div>
-        {filtered?.map(person => 
+        {persons?.map(person => 
           <Person key={person.name} person={person}/>
         )}
       </div>

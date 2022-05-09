@@ -6,7 +6,7 @@ import PersonService from './services/PersonService'
 
 const App = () => {
   const [persons, setPersons] = useState([])
-  const [filtered, setFiltered] = useState(persons)
+  const [filtered, setFiltered] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 
@@ -78,7 +78,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons person={persons} filtered={filtered}/>
+      <Persons persons={filtered}/>
     </div>
   )
 
