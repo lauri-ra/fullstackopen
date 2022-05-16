@@ -3,12 +3,15 @@ import Filter from './components/Filter'
 import Form from './components/Form'
 import Persons from './components/Person'
 import PersonService from './services/PersonService'
+import Notification from './components/Notification'
+import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [filtered, setFiltered] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     PersonService
@@ -38,9 +41,12 @@ const App = () => {
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
             setFiltered(filtered.map(person => person.id !== id ? person : returnedPerson))
-          })
 
-        console.log('new number added')
+            setMessage(`Replaced the number for ${newName}`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+          })
       }
     }
     else {
@@ -49,6 +55,11 @@ const App = () => {
         .then(returnedObj => {
           setPersons(persons.concat(returnedObj))
           setFiltered(filtered.concat(returnedObj))
+
+          setMessage(`Added ${newName}`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         })
     }
 
@@ -83,6 +94,11 @@ const App = () => {
           .then(persons => {
             setPersons(persons)
             setFiltered(persons)
+
+            setMessage(`Removed ${person.name}`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
           })
         })
     }
@@ -91,6 +107,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={message}/>
 
       <Filter handleFilter={handleFilter}/>
 
