@@ -12,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [message, setMessage] = useState(null)
+  const [errorStatus, setError] = useState(false)
 
   useEffect(() => {
     PersonService
@@ -62,7 +63,12 @@ const App = () => {
           }, 5000)
         })
         .catch(error => {
+          setError(true)
           setMessage(error.response.data.error)
+          setTimeout(() => {
+            setError(false)
+            setMessage(null)
+          }, 5000)
         }
         )
     }
@@ -112,7 +118,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={message}/>
+      <Notification message={message} errorStatus={errorStatus}/>
 
       <Filter handleFilter={handleFilter}/>
 
