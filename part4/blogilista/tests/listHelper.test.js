@@ -13,7 +13,7 @@ const oneBlog = [
   }
 ]
 
-const blogs = [
+const initialBlogs = [
   {
     _id: "5a422a851b54a676234d17f7",
     title: "React patterns",
@@ -84,7 +84,7 @@ describe('Total amount of likes', () => {
     })
 
     test('of a bigger list is calculated correctly', () => {
-      const result = listHelper.totalLikes(blogs)
+      const result = listHelper.totalLikes(initialBlogs)
       expect(result).toBe(36)
     })
 })
@@ -113,7 +113,7 @@ describe('Found the most liked blog', () => {
       likes: 12,
     }
 
-    const result = listHelper.favoriteBlog(blogs)
+    const result = listHelper.favoriteBlog(initialBlogs)
     expect(result).toEqual(mostLiked)
   })
 })
