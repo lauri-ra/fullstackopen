@@ -25,6 +25,30 @@ describe('GET request', () => {
     })
 })
 
+describe('POST request', () => {
+    test('adds new blog with correct content', async () => {
+        const newBlog = {
+            title: 'Test blog',
+            author: 'Edsger W. Dijkstra',
+            url: 'google.com',
+            likes: 3,
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+
+        const newBlogList = await helper.notesInDb()
+        const listLength = helper.initialBlogs.length
+        const lastBlog = newBlogList[listLength]
+
+        expect(newBlogList).toHaveLength(listLength + 1)
+        expect(lastBlog.title).toContain('Test blog')
+    })
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
