@@ -1,6 +1,2 @@
-POST http://localhost:3003/api/blogs 
+DELETE http://localhost:3003/api/blogs/62dd65fc8e9f55c274a3d8c9
 Content-Type: application/json
-
-{
-"title": "Test2", "author": "Author", "url": "google.com", "likes": 5
-}

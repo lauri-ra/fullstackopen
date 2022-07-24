@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
+const { update } = require('../models/blog')
 const api = supertest(app)
 const Blog = require('../models/blog')
 const helper = require('./test_helper')
@@ -22,6 +23,18 @@ describe('GET request', () => {
         const response = await api.get('/api/blogs')
 
         expect(response.body).toHaveLength(helper.initialBlogs.length)
+    })
+
+    test('returns a singular blog matching given id', async () => {
+        const blogs = await helper.blogsInDb()
+
+        const blogID = blogs[0].id
+
+        await api
+            .get(`/api/blogs/${blogID}`)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
     })
 })
 
@@ -59,6 +72,28 @@ describe('POST request', () => {
             .send(faultyBlog)
             .expect(400)
             .expect('Content-Type', /application\/json/)
+    })
+})
+
+describe('Deleting a blog', () => {
+    test('succeeds with status code 204 if id is valid', async () => {
+        const blogs = await helper.blogsInDb()
+        const blogToDelete = blogs[0]
+
+        await api
+            .delete(`/api/blogs/${blogToDelete.id}`)
+            .expect(204)
+
+        const updatedBlogs = await helper.blogsInDb()
+    
+        expect(updatedBlogs).toHaveLength(
+            helper.initialBlogs.length - 1
+        )
+
+        const contents = updatedBlogs.map(blog => blog.title)
+
+        expect(contents).not.toContain(blogToDelete.title)
+
     })
 })
 
