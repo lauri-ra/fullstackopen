@@ -1,2 +1,6 @@
-DELETE http://localhost:3003/api/blogs/62dd65fc8e9f55c274a3d8c9
+PUT http://localhost:3003/api/blogs/62dd68ee7a1408fa643214b2
 Content-Type: application/json
+
+{
+"title": "Updated Title", "author": "Updated Author", "url": "google.com", "likes": 15
+}

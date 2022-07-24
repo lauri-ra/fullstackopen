@@ -75,8 +75,8 @@ describe('POST request', () => {
     })
 })
 
-describe('Deleting a blog', () => {
-    test('succeeds with status code 204 if id is valid', async () => {
+describe('Other REST operations', () => {
+    test('DELETE succeeds with status code 204 if id is valid', async () => {
         const blogs = await helper.blogsInDb()
         const blogToDelete = blogs[0]
 
@@ -90,10 +90,31 @@ describe('Deleting a blog', () => {
             helper.initialBlogs.length - 1
         )
 
-        const contents = updatedBlogs.map(blog => blog.title)
+        const titles = updatedBlogs.map(blog => blog.title)
 
-        expect(contents).not.toContain(blogToDelete.title)
+        expect(titles).not.toContain(blogToDelete.title)
+    })
 
+    test('PUT updates a blog correctly', async () => {
+        const blogs = await helper.blogsInDb()
+        const blogToUpdate = blogs[1]
+
+        const updatedBlog = {
+            title: 'Updated Title',
+            author: 'Updated Author',
+            url: 'newurl.com',
+            likes: 15
+        }
+
+        await api
+            .put(`/api/blogs/${blogToUpdate.id}`)
+            .send(updatedBlog)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const updatedBlogs = await helper.blogsInDb()
+        
+        expect(updatedBlogs[1].title).toContain('Updated Title')
     })
 })
 
