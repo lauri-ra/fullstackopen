@@ -1,10 +1,13 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const config = require('./utils/config')
+
 const mongoose = require('mongoose')
 
 logger.info('Connenting to', config.MONGODB_URI)
@@ -24,6 +27,7 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
