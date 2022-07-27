@@ -2,7 +2,10 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
+const bcrypt = require('bcrypt')
+
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const helper = require('./test_helper')
 
 beforeEach(async () => {
@@ -140,6 +143,61 @@ describe('Bloglist value tests', () => {
         const blogs = await helper.blogsInDb()
 
         expect(blogs[blogs.length-1].likes).toBe(0)
+    })
+})
+
+describe('User value tests', () => {
+    beforeEach(async () => {
+        await User.deleteMany({})
+
+        const hash = await bcrypt.hash('secret', 10)
+        const user = new User({
+            username: 'Username',
+            name: 'User',
+            password: hash
+        })
+
+        await user.save()
+    })
+
+    test('Adding invalid username fails', async () => {
+        const exsistingUsr = {
+            username: 'Username',
+            name: 'User 2',
+            password: 'secret2'
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(exsistingUsr)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+
+        const faultyUser = {
+            username: 'Aa',
+            name: 'User',
+            password: 'secret'
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(faultyUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+    })
+
+    test('Adding invalid password fails', async () => {
+        const faultyUser = {
+            username: 'Aapo',
+            name: 'User',
+            password: 'se'
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(faultyUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
     })
 })
 
