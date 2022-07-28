@@ -1,10 +1,11 @@
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyZTJmNTM1NTI0Nzc0MjYwMTMwNzE5YyIsImlhdCI6MTY1OTA0MTI4MH0.lZ_3Nq9s2eFypnMo49bdFkXw-xbGRV5Q0SG_ejrLLpk
 
 {
-    "title": "New Blog 1", 
-    "author": "New Author", 
+    "title": "New Blog", 
+    "author": "Some Author", 
     "url": "google.com", 
     "likes": 5,
-    "userId": "62e2ea56d4923fd08551fa0f"
+    "userId": "62e2f535524774260130719c"
 }
