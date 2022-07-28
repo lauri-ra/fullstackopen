@@ -1,9 +1,9 @@
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyZTJmNTM1NTI0Nzc0MjYwMTMwNzE5YyIsImlhdCI6MTY1OTA0MTI4MH0.lZ_3Nq9s2eFypnMo49bdFkXw-xbGRV5Q0SG_ejrLLpk
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyZTJmNTM1NTI0Nzc0MjYwMTMwNzE5YyIsImlhdCI6MTY1OTA0Mzc2OH0.BK4vEet-XOEeShMxkYc7uf-UViQxrkGhdddpH2kecvw
 
 {
-    "title": "New Blog", 
+    "title": "New Blog 2", 
     "author": "Some Author", 
     "url": "google.com", 
     "likes": 5,
