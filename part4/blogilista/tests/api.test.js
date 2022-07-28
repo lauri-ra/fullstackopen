@@ -149,14 +149,21 @@ describe('Bloglist value tests', () => {
 describe('User value tests', () => {
     beforeEach(async () => {
         await User.deleteMany({})
-        await User.insertMany(helper.initialUsers)
+
+        const passwordHash = await bcrypt.hash('secret', 10)
+        const user = new User({ 
+            username: 'root',
+            name: 'admin',
+            passwordHash 
+        })
+
+        await user.save()
     })
 
     test('Adding invalid username fails', async () => {
         const exsistingUsr = {
-            username: 'Username',
-            name: 'User 2',
-            password: 'secret2'
+            username: 'root',
+            name: 'admin',
         }
 
         await api
@@ -168,7 +175,6 @@ describe('User value tests', () => {
         const faultyUser = {
             username: 'Aa',
             name: 'User',
-            password: 'secret'
         }
 
         await api
