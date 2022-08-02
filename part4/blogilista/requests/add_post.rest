@@ -1,11 +1,11 @@
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyZTJmNTM1NTI0Nzc0MjYwMTMwNzE5YyIsImlhdCI6MTY1OTA0Nzc5MH0.tuxO7D1H4pjYGjPjyaegBLFfEq32Yr2mXPXOzItED_E
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyZTk0M2ViMTg0ZjkzNjhkZThhNWNiNCIsImlhdCI6MTY1OTQ1NDgyMX0.QaZQrneTL9Al2DULz_VWeo25iKfpHMpSXJceVpqFZfk
 
 {
-    "title": "New Blog 2", 
+    "title": "New Blog 1", 
     "author": "Some Author", 
     "url": "google.com", 
     "likes": 5,
-    "userId": "62e2f535524774260130719c"
+    "userId": "62e943eb184f9368de8a5cb4"
 }
