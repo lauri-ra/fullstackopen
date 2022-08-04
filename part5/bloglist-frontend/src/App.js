@@ -5,6 +5,12 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+
+  const [newBlog, setNewBlog] = useState('')
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
+ 
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -36,6 +42,7 @@ const App = () => {
         'loggedUser', JSON.stringify(user)
       )
 
+      blogService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -49,6 +56,24 @@ const App = () => {
     console.log('logout')
     window.localStorage.removeItem('loggedUser')
     window.location.reload()
+  }
+
+  const handleSumbit = async (event) => {
+    event.preventDefault()
+
+    const blogObject = {
+      title: title,
+      author: author,
+      url: url,
+      likes: 0
+    }
+
+    console.log('submit', blogObject)
+
+    await blogService.create(blogObject)
+    setTitle('')
+    setAuthor('')
+    setUrl('')
   }
 
   const loginForm = () => (
@@ -79,6 +104,42 @@ const App = () => {
   const blogView = () => (
     <div>
       <h2>blogs</h2>
+
+      <form onSubmit={handleSumbit}>
+        <h2>create new blog</h2>
+
+        <div>
+          title
+          <input 
+            type='text'
+            name='title' 
+            value={title}
+            onChange={({ target }) => setTitle(target.value)}
+            />
+        </div>
+
+        <div>
+          author
+          <input 
+            type='text'
+            name='author' 
+            value={author}
+            onChange={({ target }) => setAuthor(target.value)}
+            />
+        </div>
+
+        <div>
+          url
+          <input 
+            type='text'
+            name='url' 
+            value={url}
+            onChange={({ target }) => setUrl(target.value)}
+            />
+        </div>
+
+        <button type="submit"> create </button>
+      </form>
 
       <p>
         {user.username} logged in
