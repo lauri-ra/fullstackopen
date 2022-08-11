@@ -88,6 +88,21 @@ const App = () => {
     }
   }
 
+  const updateBlog = async (blogObject) => {
+    try {
+      await blogService.update(blogObject.id, blogObject)
+    }
+    catch (exception) {
+      setErrorStatus(true)
+      setMessage('Error updating the blog')
+
+      setTimeout(() => {
+        setErrorStatus(false)
+        setMessage(null)
+      }, 5000)
+    }
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <h2>Login to application</h2>
@@ -134,7 +149,7 @@ const App = () => {
       </Togglable>
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
       )}
     </div>
   )
