@@ -1,17 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
+import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import './index.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-
-  const [newBlog, setNewBlog] = useState('')
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
  
   const [message, setMessage] = useState(null)
   const [errorStatus, setErrorStatus] = useState(false)
@@ -19,6 +16,8 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+
+  const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -67,23 +66,13 @@ const App = () => {
     window.location.reload()
   }
 
-  const handleSumbit = async (event) => {
-    event.preventDefault()
-
-    const blogObject = {
-      title: title,
-      author: author,
-      url: url,
-      likes: 0
-    }
+  const createBlog = async (blogObject) => {
+    blogFormRef.current.toggleVisibility()
 
     try {
       await blogService.create(blogObject)
-      setTitle('')
-      setAuthor('')
-      setUrl('')
 
-      setMessage(`New blog ${title} by ${author} created`)
+      setMessage(`New blog ${blogObject.title} by ${blogObject.author} created`)
       setTimeout(() => {
         setMessage(null)
       }, 5000)
@@ -129,45 +118,7 @@ const App = () => {
 
   const blogView = () => (
     <div>
-      <h2>blogs</h2>
-
       <Notification message={message} errorStatus={errorStatus}/>
-
-      <form onSubmit={handleSumbit}>
-        <h2>create new blog</h2>
-
-        <div>
-          title
-          <input 
-            type='text'
-            name='title' 
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-            />
-        </div>
-
-        <div>
-          author
-          <input 
-            type='text'
-            name='author' 
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-            />
-        </div>
-
-        <div>
-          url
-          <input 
-            type='text'
-            name='url' 
-            value={url}
-            onChange={({ target }) => setUrl(target.value)}
-            />
-        </div>
-
-        <button type="submit"> create </button>
-      </form>
 
       <p>
         {user.username} logged in
@@ -178,6 +129,10 @@ const App = () => {
         </button>
       </p>
 
+      <Togglable buttonLabel="New blog" ref={blogFormRef}>
+        <BlogForm createBlog={createBlog}/>
+      </Togglable>
+
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
@@ -186,6 +141,7 @@ const App = () => {
 
   return (
     <div>
+      <h1>blogs</h1>
       {user === null && loginForm()}
       {user !== null && blogView()}
     </div>
