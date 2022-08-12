@@ -10,6 +10,9 @@ const helper = require('./test_helper')
 
 beforeEach(async () => {
     await Blog.deleteMany({})
+    await User.deleteMany({})
+
+    helper.initialBlogs.forEach(blog => blog.user = null)
     await Blog.insertMany(helper.initialBlogs)
 })
 
@@ -148,8 +151,6 @@ describe('Bloglist value tests', () => {
 
 describe('User value tests', () => {
     beforeEach(async () => {
-        await User.deleteMany({})
-
         const passwordHash = await bcrypt.hash('secret', 10)
         const user = new User({ 
             username: 'root',
