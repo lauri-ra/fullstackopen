@@ -31,6 +31,7 @@ const App = () => {
     if(loggedUser) {
       const user = JSON.parse(loggedUser)
       setUser(user)
+      blogService.setToken(user.token)
     }
   }, [])
 
@@ -103,6 +104,15 @@ const App = () => {
     }
   }
 
+  const removeBlog = async (blogObject) => {
+    try {
+      await blogService.remove(blogObject.id)
+    }
+    catch (exception) {
+      console.log('error while removing')
+    }
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <h2>Login to application</h2>
@@ -151,7 +161,7 @@ const App = () => {
       {blogs
         .sort((a, b) =>  b.likes-a.likes)
         .map(blog =>
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog}/>
         )
       }
     </div>

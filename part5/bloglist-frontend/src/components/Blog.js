@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const Blog = ({blog, updateBlog}) => {
+const Blog = ({blog, updateBlog, removeBlog}) => {
   const [showDetails, setShowDetails] = useState(false)
 
   const toggleVisibility = () => {
@@ -18,6 +18,15 @@ const Blog = ({blog, updateBlog}) => {
     console.log(updatedBlog)
 
     updateBlog(updatedBlog)
+  }
+
+  const handleRemove = () => {
+    console.log('clicked remove')
+
+    if(window.confirm(`Remove blog ${blog.title}`)) {
+      console.log('confirmed remove')
+      removeBlog(blog)
+    }
   }
 
   const blogStyle = {
@@ -45,6 +54,7 @@ const Blog = ({blog, updateBlog}) => {
           <button onClick={handleLike}>like</button>
         </div>
         <button onClick={toggleVisibility}>hide</button>
+        <button onClick={handleRemove}>remove</button>
       </div>
     </div>  
   )
