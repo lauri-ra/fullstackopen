@@ -2,9 +2,21 @@ import { useState } from "react"
 
 const Blog = ({blog, updateBlog, removeBlog}) => {
   const [showDetails, setShowDetails] = useState(false)
+  const [showRemove, setShowRemove] = useState(false)
 
   const toggleVisibility = () => {
     setShowDetails(!showDetails)
+  }
+
+  const permToRemove = () => {
+    if(blog.user === null && !blog.user) {
+      return false
+    }
+
+    const loggedUser = window.localStorage.getItem('loggedUser')
+    const user = JSON.parse(loggedUser)
+    return blog.user.username === user.username
+    
   }
 
   const handleLike = () => {
@@ -21,10 +33,7 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
   }
 
   const handleRemove = () => {
-    console.log('clicked remove')
-
     if(window.confirm(`Remove blog ${blog.title}`)) {
-      console.log('confirmed remove')
       removeBlog(blog)
     }
   }
@@ -54,7 +63,7 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
           <button onClick={handleLike}>like</button>
         </div>
         <button onClick={toggleVisibility}>hide</button>
-        <button onClick={handleRemove}>remove</button>
+        {permToRemove() ? <button onClick={handleRemove}>remove</button> : ''}
       </div>
     </div>  
   )
