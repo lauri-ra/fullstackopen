@@ -1,8 +1,8 @@
 import { useState } from "react"
+import PropTypes from 'prop-types'
 
 const Blog = ({blog, updateBlog, removeBlog}) => {
   const [showDetails, setShowDetails] = useState(false)
-  const [showRemove, setShowRemove] = useState(false)
 
   const toggleVisibility = () => {
     setShowDetails(!showDetails)
@@ -15,8 +15,8 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
 
     const loggedUser = window.localStorage.getItem('loggedUser')
     const user = JSON.parse(loggedUser)
-    return blog.user.username === user.username
     
+    return blog.user.username === user.username
   }
 
   const handleLike = () => {
@@ -73,6 +73,12 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
       {showDetails ? detailedBlog : simpleBlog}
     </div>
   ) 
+}
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  updateBlog: PropTypes.func.isRequired,
+  removeBlog: PropTypes.func.isRequired
 }
 
 export default Blog
