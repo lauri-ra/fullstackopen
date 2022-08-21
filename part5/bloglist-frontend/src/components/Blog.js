@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const Blog = ({blog, updateBlog, removeBlog}) => {
+const Blog = ({ blog, updateBlog, removeBlog }) => {
   const [showDetails, setShowDetails] = useState(false)
 
   const toggleVisibility = () => {
@@ -15,7 +15,7 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
 
     const loggedUser = window.localStorage.getItem('loggedUser')
     const user = JSON.parse(loggedUser)
-    
+
     return blog.user.username === user.username
   }
 
@@ -65,14 +65,14 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
         <button onClick={toggleVisibility}>hide</button>
         {permToRemove() ? <button onClick={handleRemove}>remove</button> : ''}
       </div>
-    </div>  
+    </div>
   )
 
   return (
     <div style={blogStyle}>
       {showDetails ? detailedBlog : simpleBlog}
     </div>
-  ) 
+  )
 }
 
 Blog.propTypes = {

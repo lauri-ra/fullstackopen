@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const Notification = ({message, errorStatus}) => {
+const Notification = ({ message, errorStatus }) => {
     if(message === null) {
         return null
     }

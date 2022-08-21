@@ -9,7 +9,7 @@ import './index.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
- 
+
   const [message, setMessage] = useState(null)
   const [errorStatus, setErrorStatus] = useState(false)
 
@@ -39,7 +39,7 @@ const App = () => {
     event.preventDefault()
 
     try {
-      const user = await loginService.login({username, password})
+      const user = await loginService.login({ username, password })
 
       window.localStorage.setItem(
         'loggedUser', JSON.stringify(user)
@@ -122,19 +122,19 @@ const App = () => {
       <div>
         username
         <input
-        type="text"
-        value={username}
-        name="Username"
-        onChange={({ target }) => setUsername(target.value)}
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
         />
       </div>
       <div>
         password
         <input
-        type="password"
-        value={password}
-        name="Password"
-        onChange={({ target }) => setPassword(target.value)}
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
         />
       </div>
       <button type="submit">login</button>
@@ -147,8 +147,8 @@ const App = () => {
 
       <p>
         {user.username} logged in
-        <button 
-          type="button" 
+        <button
+          type="button"
           onClick={handleLogout}>
           logout
         </button>
