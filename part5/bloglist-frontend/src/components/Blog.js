@@ -9,11 +9,12 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
   }
 
   const permToRemove = () => {
-    if(blog.user === null && !blog.user) {
+    const loggedUser = window.localStorage.getItem('loggedUser')
+
+    if(blog.user === null || !blog.user || !loggedUser) {
       return false
     }
 
-    const loggedUser = window.localStorage.getItem('loggedUser')
     const user = JSON.parse(loggedUser)
 
     return blog.user.username === user.username
