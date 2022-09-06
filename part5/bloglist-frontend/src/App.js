@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
+import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import './index.css'
@@ -113,33 +114,6 @@ const App = () => {
     }
   }
 
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <h2>Login to application</h2>
-
-      <Notification message={message} errorStatus={errorStatus}/>
-
-      <div>
-        username
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
-  )
 
   const blogView = () => (
     <div>
@@ -149,6 +123,7 @@ const App = () => {
         {user.username} logged in
         <button
           type="button"
+          id='logout-button'
           onClick={handleLogout}>
           logout
         </button>
@@ -170,7 +145,18 @@ const App = () => {
   return (
     <div>
       <h1>blogs</h1>
-      {user === null && loginForm()}
+      {user === null &&
+        <div>
+          <Notification message={message} errorStatus={errorStatus}/>
+          <LoginForm
+          handleLogin={handleLogin}
+          handleUsername={({ target }) => setUsername(target.value)}
+          handlePassword={({ target }) => setPassword(target.value)}
+          username={username}
+          password={password}
+          />
+        </div>
+      }
       {user !== null && blogView()}
     </div>
   )
