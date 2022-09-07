@@ -50,7 +50,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
   const simpleBlog = (
     <div>
       {blog.title} {blog.author}
-      <button onClick={toggleVisibility}>view</button>
+      <button onClick={toggleVisibility} id='view-button'>view</button>
     </div>
   )
 
@@ -61,10 +61,10 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
         <div>{blog.url}</div>
         <div>
           likes: {blog.likes}
-          <button onClick={handleLike}>like</button>
+          <button onClick={handleLike} id='like-button'>like</button>
         </div>
-        <button onClick={toggleVisibility}>hide</button>
-        {permToRemove() ? <button onClick={handleRemove}>remove</button> : ''}
+        <button onClick={toggleVisibility} id='hide-button'>hide</button>
+        {permToRemove() ? <button onClick={handleRemove} id='remove-button'>remove</button> : ''}
       </div>
     </div>
   )

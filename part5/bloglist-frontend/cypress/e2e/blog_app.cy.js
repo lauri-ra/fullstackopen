@@ -48,5 +48,22 @@ describe('Blog ', function() {
           cy.visit('http://localhost:3000')
           cy.contains('test title test author')
       })
+
+      it('blog can be liked', function() {
+        cy.createBlog({
+          title: 'New title',
+          author: 'New author',
+          url: 'blogs.com',
+          likes: 0
+        })
+
+        cy.get('#view-button').click()
+        cy.contains('likes: 0')
+        cy.get('#like-button').click()
+
+        cy.visit('http://localhost:3000')
+        cy.get('#view-button').click()
+        cy.contains('likes: 1')
+      })
     })
   })
