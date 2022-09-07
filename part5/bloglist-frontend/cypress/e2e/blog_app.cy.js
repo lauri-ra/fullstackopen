@@ -34,4 +34,25 @@ describe('Blog ', function() {
         cy.get('#login-button').click()
       })
     })
+
+    describe('When logged in', function() {
+/*       beforeEach(function() {
+        cy.visit('http://localhost:3000')
+        cy.get('#username').type('root')
+        cy.get('#password').type('secret')
+        cy.get('#login-button').click()
+      }) */
+
+      it('a blog can be created', function() {
+        cy.contains('New blog').click()
+
+        cy.get('#title').type('test title')
+        cy.get('#author').type('test author')
+        cy.get('#url').type('test url')
+
+        cy.get('#create-button').click()
+
+
+      })
+    })
   })
