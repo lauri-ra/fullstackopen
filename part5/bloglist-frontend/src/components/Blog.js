@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const Blog = ({ blog, updateBlog, removeBlog }) => {
   const [showDetails, setShowDetails] = useState(false)
+  const [likes, setLikes] = useState(blog.likes)
 
   const toggleVisibility = () => {
     setShowDetails(!showDetails)
@@ -28,8 +29,8 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
       likes: blog.likes + 1,
       url: blog.url
     }
-    console.log(updatedBlog)
 
+    setLikes(likes + 1)
     updateBlog(updatedBlog)
   }
 
@@ -60,7 +61,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
         <div>{blog.title} {blog.author}</div>
         <div>{blog.url}</div>
         <div>
-          likes: {blog.likes}
+          likes: {likes}
           <button onClick={handleLike} id='like-button'>like</button>
         </div>
         <button onClick={toggleVisibility} id='hide-button'>hide</button>

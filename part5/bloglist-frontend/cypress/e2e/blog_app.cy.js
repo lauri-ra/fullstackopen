@@ -60,9 +60,6 @@ describe('Blog ', function() {
         cy.get('#view-button').click()
         cy.contains('likes: 0')
         cy.get('#like-button').click()
-
-        cy.visit('http://localhost:3000')
-        cy.get('#view-button').click()
         cy.contains('likes: 1')
       })
     })
