@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const Blog = ({ blog, updateBlog, removeBlog }) => {
+const Blog = ({ blog, setBlogs, blogs, updateBlog, removeBlog }) => {
   const [showDetails, setShowDetails] = useState(false)
   const [likes, setLikes] = useState(blog.likes)
 
@@ -22,21 +22,26 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
   }
 
   const handleLike = () => {
+    setLikes(likes + 1)
+
     const updatedBlog = {
       id: blog.id,
       title: blog.title,
       author: blog.author,
-      likes: blog.likes + 1,
+      likes: likes + 1,
       url: blog.url
     }
-
-    setLikes(likes + 1)
     updateBlog(updatedBlog)
   }
 
   const handleRemove = () => {
     if(window.confirm(`Remove blog ${blog.title}`)) {
+      const removedID = blog.id
+
       removeBlog(blog)
+
+      blogs = blogs.filter(b => b.id !== removedID)
+      setBlogs(blogs)
     }
   }
 

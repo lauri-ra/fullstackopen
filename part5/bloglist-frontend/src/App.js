@@ -74,6 +74,9 @@ const App = () => {
     try {
       await blogService.create(blogObject)
 
+      const blogs = await blogService.getAll()
+      setBlogs(blogs)
+
       setMessage(`New blog ${blogObject.title} by ${blogObject.author} created`)
       setTimeout(() => {
         setMessage(null)
@@ -136,7 +139,7 @@ const App = () => {
       {blogs
         .sort((a, b) =>  b.likes-a.likes)
         .map(blog =>
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog}/>
+          <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} updateBlog={updateBlog} removeBlog={removeBlog}/>
         )
       }
     </div>
