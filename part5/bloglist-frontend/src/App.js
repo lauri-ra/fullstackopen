@@ -111,6 +111,7 @@ const App = () => {
   const removeBlog = async (blogObject) => {
     try {
       await blogService.remove(blogObject.id)
+      setMessage('Blog removed')
     }
     catch (exception) {
       console.log('error while removing')

@@ -45,22 +45,33 @@ describe('Blog ', function() {
           cy.get('#url').type('test url')
           cy.get('#create-button').click()
 
-          cy.visit('http://localhost:3000')
           cy.contains('test title test author')
       })
 
-      it('blog can be liked', function() {
-        cy.createBlog({
-          title: 'New title',
-          author: 'New author',
-          url: 'blogs.com',
-          likes: 0
+      describe('When blog is created', function() {
+        beforeEach(function() {
+          cy.createBlog({
+            title: 'New title',
+            author: 'New author',
+            url: 'blogs.com',
+            likes: 0
+          })
         })
 
-        cy.get('#view-button').click()
-        cy.contains('likes: 0')
-        cy.get('#like-button').click()
-        cy.contains('likes: 1')
+        it('blog can be liked', function() {
+          cy.get('#view-button').click()
+          cy.contains('likes: 0')
+          cy.get('#like-button').click()
+          cy.contains('likes: 1')
+        })
+
+        it('blog can be removed', function() {
+          cy.contains('New title New author')
+            .get('#view-button').click()
+            .get('#remove-button').click()
+
+          cy.get('.noti').contains('Blog removed')
+        })
       })
     })
   })
