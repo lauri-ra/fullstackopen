@@ -98,6 +98,8 @@ describe('Blog ', function() {
           })
 
           cy.get('.blog').eq(0).should('contain', 'Title with most likes')
+          cy.get('.blog').eq(1).should('contain', '2nd most liked')
+          cy.get('.blog').eq(2).should('contain', 'Least liked blog')
         })
       })
     })
