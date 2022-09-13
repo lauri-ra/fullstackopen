@@ -73,5 +73,32 @@ describe('Blog ', function() {
           cy.get('.noti').contains('Blog removed')
         })
       })
+
+      describe('Multiple blogs', function() {
+        it('are in correct order', function() {
+          cy.createBlog({
+            title: 'Title with most likes',
+            author: 'Some Author',
+            url: 'google.com',
+            likes: 15
+          })
+
+          cy.createBlog({
+            title: '2nd most liked',
+            author: 'Some Author',
+            url: 'google.com',
+            likes: 10
+          })
+
+          cy.createBlog({
+            title: 'Least liked blog',
+            author: 'Some Author',
+            url: 'google.com',
+            likes: 4
+          })
+
+          cy.get('.blog').eq(0).should('contain', 'Title with most likes')
+        })
+      })
     })
   })
