@@ -12,6 +12,7 @@ store.dispatch({
   data: {
     content: 'the app state is in redux store',
     important: true,
+    votes: 0,
     id: 1
   }
 })
@@ -21,6 +22,7 @@ store.dispatch({
   data: {
     content: 'state changes are made with actions',
     important: false,
+    votes: 0,
     id: 2
   }
 })
