@@ -12,7 +12,8 @@ const notificationSlice = createSlice({
             return state
         },
         removeNotification(state, action) {
-            return initialState
+            state = initialState
+            return state
         }
     }
 })
