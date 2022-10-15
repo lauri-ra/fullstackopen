@@ -11,9 +11,6 @@ import './index.css'
 const App = () => {
   const [blogs, setBlogs] = useState([])
 
-  const [message, setMessage] = useState(null)
-  const [errorStatus, setErrorStatus] = useState(false)
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -47,13 +44,12 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorStatus(true)
-      setMessage('Incorrect credentials')
-
-      setTimeout(() => {
-        setErrorStatus(false)
-        setMessage(null)
-      }, 5000)
+      // setErrorStatus(true)
+      // setMessage('Incorrect credentials')
+      // setTimeout(() => {
+      //   setErrorStatus(false)
+      //   setMessage(null)
+      // }, 5000)
     }
   }
 
@@ -71,19 +67,13 @@ const App = () => {
 
       const blogs = await blogService.getAll()
       setBlogs(blogs)
-
-      setMessage(`New blog ${blogObject.title} by ${blogObject.author} created`)
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
     } catch (exception) {
-      setErrorStatus(true)
-      setMessage('Error creating a new blog. Fill in all all the details!')
-
-      setTimeout(() => {
-        setErrorStatus(false)
-        setMessage(null)
-      }, 5000)
+      // setErrorStatus(true)
+      // setMessage('Error creating a new blog. Fill in all all the details!')
+      // setTimeout(() => {
+      //   setErrorStatus(false)
+      //   setMessage(null)
+      // }, 5000)
     }
   }
 
@@ -91,20 +81,19 @@ const App = () => {
     try {
       await blogService.update(blogObject.id, blogObject)
     } catch (exception) {
-      setErrorStatus(true)
-      setMessage('Error updating the blog')
-
-      setTimeout(() => {
-        setErrorStatus(false)
-        setMessage(null)
-      }, 5000)
+      // setErrorStatus(true)
+      // setMessage('Error updating the blog')
+      // setTimeout(() => {
+      //   setErrorStatus(false)
+      //   setMessage(null)
+      // }, 5000)
     }
   }
 
   const removeBlog = async (blogObject) => {
     try {
       await blogService.remove(blogObject.id)
-      setMessage('Blog removed')
+      // setMessage('Blog removed')
     } catch (exception) {
       console.log('error while removing')
     }
@@ -112,7 +101,7 @@ const App = () => {
 
   const blogView = () => (
     <div>
-      <Notification message={message} errorStatus={errorStatus} />
+      <Notification />
 
       <p>
         {user.username} logged in
@@ -145,7 +134,7 @@ const App = () => {
       <h1>blogs</h1>
       {user === null && (
         <div>
-          <Notification message={message} errorStatus={errorStatus} />
+          <Notification />
           <LoginForm
             handleLogin={handleLogin}
             handleUsername={({ target }) => setUsername(target.value)}
@@ -161,3 +150,4 @@ const App = () => {
 }
 
 export default App
+
