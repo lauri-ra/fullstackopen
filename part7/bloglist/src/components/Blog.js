@@ -12,7 +12,7 @@ const Blog = ({ blog, setBlogs, blogs, updateBlog, removeBlog }) => {
   const permToRemove = () => {
     const loggedUser = window.localStorage.getItem('loggedUser')
 
-    if(blog.user === null || !blog.user || !loggedUser) {
+    if (blog.user === null || !blog.user || !loggedUser) {
       return false
     }
 
@@ -35,12 +35,12 @@ const Blog = ({ blog, setBlogs, blogs, updateBlog, removeBlog }) => {
   }
 
   const handleRemove = () => {
-    if(window.confirm(`Remove blog ${blog.title}`)) {
+    if (window.confirm(`Remove blog ${blog.title}`)) {
       const removedID = blog.id
 
       removeBlog(blog)
 
-      blogs = blogs.filter(b => b.id !== removedID)
+      blogs = blogs.filter((b) => b.id !== removedID)
       setBlogs(blogs)
     }
   }
@@ -48,30 +48,40 @@ const Blog = ({ blog, setBlogs, blogs, updateBlog, removeBlog }) => {
   const simpleBlog = (
     <div>
       {blog.title} {blog.author}
-      <button onClick={toggleVisibility} id='view-button'>view</button>
+      <button onClick={toggleVisibility} id="view-button">
+        view
+      </button>
     </div>
   )
 
   const detailedBlog = (
     <div>
       <div>
-        <div>{blog.title} {blog.author}</div>
+        <div>
+          {blog.title} {blog.author}
+        </div>
         <div>{blog.url}</div>
         <div>
           likes: {likes}
-          <button onClick={handleLike} id='like-button'>like</button>
+          <button onClick={handleLike} id="like-button">
+            like
+          </button>
         </div>
-        <button onClick={toggleVisibility} id='hide-button'>hide</button>
-        {permToRemove() ? <button onClick={handleRemove} id='remove-button'>remove</button> : ''}
+        <button onClick={toggleVisibility} id="hide-button">
+          hide
+        </button>
+        {permToRemove() ? (
+          <button onClick={handleRemove} id="remove-button">
+            remove
+          </button>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   )
 
-  return (
-    <div className="blog">
-      {showDetails ? detailedBlog : simpleBlog}
-    </div>
-  )
+  return <div className="blog">{showDetails ? detailedBlog : simpleBlog}</div>
 }
 
 Blog.propTypes = {
