@@ -3,7 +3,7 @@ import blogService from '../services/blogs'
 
 const blogSlice = createSlice({
   name: 'blogs',
-  intitialState: [],
+  initialState: [],
   reducers: {
     setBlogs(state, action) {
       return action.payload
@@ -29,4 +29,4 @@ export const createBlog = (content) => {
 }
 
 export const { setBlogs, appendBlog } = blogSlice.actions
-export default blogSlice.reducers
+export default blogSlice.reducer

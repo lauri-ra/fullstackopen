@@ -1,25 +1,26 @@
 import { useState, useEffect, useRef } from 'react'
-import Blog from './components/Blog'
+import { useDispatch } from 'react-redux'
+import { initializeBlogs } from './reducers/blogReducer'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
+import BlogList from './components/BlogList'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import './index.css'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   const blogFormRef = useRef()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
-  }, [])
+    dispatch(initializeBlogs())
+  }, [dispatch])
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('loggedUser')
@@ -44,12 +45,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      // setErrorStatus(true)
-      // setMessage('Incorrect credentials')
-      // setTimeout(() => {
-      //   setErrorStatus(false)
-      //   setMessage(null)
-      // }, 5000)
+      console.log('error in handlelogin')
     }
   }
 
@@ -57,46 +53,6 @@ const App = () => {
     console.log('logout')
     window.localStorage.removeItem('loggedUser')
     window.location.reload()
-  }
-
-  const createBlog = async (blogObject) => {
-    blogFormRef.current.toggleVisibility()
-
-    try {
-      await blogService.create(blogObject)
-
-      const blogs = await blogService.getAll()
-      setBlogs(blogs)
-    } catch (exception) {
-      // setErrorStatus(true)
-      // setMessage('Error creating a new blog. Fill in all all the details!')
-      // setTimeout(() => {
-      //   setErrorStatus(false)
-      //   setMessage(null)
-      // }, 5000)
-    }
-  }
-
-  const updateBlog = async (blogObject) => {
-    try {
-      await blogService.update(blogObject.id, blogObject)
-    } catch (exception) {
-      // setErrorStatus(true)
-      // setMessage('Error updating the blog')
-      // setTimeout(() => {
-      //   setErrorStatus(false)
-      //   setMessage(null)
-      // }, 5000)
-    }
-  }
-
-  const removeBlog = async (blogObject) => {
-    try {
-      await blogService.remove(blogObject.id)
-      // setMessage('Blog removed')
-    } catch (exception) {
-      console.log('error while removing')
-    }
   }
 
   const blogView = () => (
@@ -114,18 +70,7 @@ const App = () => {
         <BlogForm />
       </Togglable>
 
-      {blogs
-        .sort((a, b) => b.likes - a.likes)
-        .map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            setBlogs={setBlogs}
-            blogs={blogs}
-            updateBlog={updateBlog}
-            removeBlog={removeBlog}
-          />
-        ))}
+      <BlogList />
     </div>
   )
 
