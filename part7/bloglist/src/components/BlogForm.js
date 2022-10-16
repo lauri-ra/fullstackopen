@@ -1,31 +1,26 @@
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createNotification } from '../reducers/notificationReducer'
-import PropTypes from 'prop-types'
+import { createBlog } from '../reducers/blogReducer'
 
-const BlogForm = ({ createBlog }) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
-
+const BlogForm = () => {
   const dispatch = useDispatch()
 
   const addBlog = async (event) => {
     event.preventDefault()
 
     const blogObject = {
-      title: title,
-      author: author,
-      url: url,
+      title: event.target.title.value,
+      author: event.target.author.value,
+      url: event.target.url.value,
       likes: 0
     }
 
-    createBlog(blogObject)
-    dispatch(createNotification(`Created blog: ${title}`, 5))
+    event.target.title.value = ''
+    event.target.author.value = ''
+    event.target.url.value = ''
 
-    setTitle('')
-    setAuthor('')
-    setUrl('')
+    dispatch(createBlog(blogObject))
+    dispatch(createNotification(`Created blog: ${blogObject.title}`, 5))
   }
 
   return (
@@ -35,48 +30,25 @@ const BlogForm = ({ createBlog }) => {
       <form onSubmit={addBlog}>
         <div>
           title
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-            placeholder={'title'}
-          />
+          <input type="text" id="title" placeholder={'title'} />
         </div>
 
         <div>
           author
-          <input
-            type="text"
-            id="author"
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-            placeholder={'author'}
-          />
+          <input type="text" id="author" placeholder={'author'} />
         </div>
 
         <div>
           url
-          <input
-            type="text"
-            id="url"
-            value={url}
-            onChange={({ target }) => setUrl(target.value)}
-            placeholder={'url'}
-          />
+          <input type="text" id="url" placeholder={'url'} />
         </div>
 
         <button type="submit" id="create-button">
-          {' '}
-          create{' '}
+          create
         </button>
       </form>
     </div>
   )
-}
-
-BlogForm.propTypes = {
-  createBlog: PropTypes.func.isRequired
 }
 
 export default BlogForm
