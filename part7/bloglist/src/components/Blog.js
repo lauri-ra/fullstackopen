@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { vote } from '../reducers/blogReducer'
 
-const Blog = ({ blog, setBlogs, blogs, updateBlog, removeBlog }) => {
+const Blog = ({ blog }) => {
   const [showDetails, setShowDetails] = useState(false)
-  const [likes, setLikes] = useState(blog.likes)
+
+  const dispatch = useDispatch()
 
   const toggleVisibility = () => {
     setShowDetails(!showDetails)
@@ -21,26 +24,13 @@ const Blog = ({ blog, setBlogs, blogs, updateBlog, removeBlog }) => {
   }
 
   const handleLike = () => {
-    setLikes(likes + 1)
-
-    const updatedBlog = {
-      id: blog.id,
-      title: blog.title,
-      author: blog.author,
-      likes: likes + 1,
-      url: blog.url
-    }
-    updateBlog(updatedBlog)
+    const id = blog.id
+    dispatch(vote(id))
   }
 
   const handleRemove = () => {
     if (window.confirm(`Remove blog ${blog.title}`)) {
       const removedID = blog.id
-
-      removeBlog(blog)
-
-      blogs = blogs.filter((b) => b.id !== removedID)
-      setBlogs(blogs)
     }
   }
 
@@ -61,7 +51,7 @@ const Blog = ({ blog, setBlogs, blogs, updateBlog, removeBlog }) => {
         </div>
         <div>{blog.url}</div>
         <div>
-          likes: {likes}
+          likes: {blog.likes}
           <button onClick={handleLike} id="like-button">
             like
           </button>
