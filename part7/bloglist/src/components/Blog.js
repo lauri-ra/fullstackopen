@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { vote } from '../reducers/blogReducer'
+import { vote, remove } from '../reducers/blogReducer'
+import { createNotification } from '../reducers/notificationReducer'
 
 const Blog = ({ blog }) => {
   const [showDetails, setShowDetails] = useState(false)
@@ -20,17 +21,20 @@ const Blog = ({ blog }) => {
 
     const user = JSON.parse(loggedUser)
 
-    return blog.user.username === user.username
+    if (blog.user.username === user.username) {
+      return true
+    }
   }
 
   const handleLike = () => {
-    const id = blog.id
-    dispatch(vote(id))
+    dispatch(vote(blog.id))
+    dispatch(createNotification(`Voted blog: ${blog.title}`, 5))
   }
 
   const handleRemove = () => {
     if (window.confirm(`Remove blog ${blog.title}`)) {
-      const removedID = blog.id
+      dispatch(remove(blog.id))
+      dispatch(createNotification(`Removed blog: ${blog.title}`, 5))
     }
   }
 
