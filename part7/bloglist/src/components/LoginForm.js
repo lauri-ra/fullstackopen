@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { useField } from '../hooks'
 import { logUserIn } from '../reducers/loginReducer'
 
-const LoginForm = ({}) => {
+const LoginForm = () => {
   const dispatch = useDispatch()
 
   const username = useField('text')

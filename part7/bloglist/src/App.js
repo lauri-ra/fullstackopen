@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeBlogs } from './reducers/blogReducer'
 import Notification from './components/Notification'
+import Header from './components/Header'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import BlogList from './components/BlogList'
-import blogService from './services/blogs'
+import { setLogin } from './reducers/loginReducer'
 import './index.css'
 
 const App = () => {
@@ -20,38 +21,13 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    const loggedUser = window.localStorage.getItem('loggedUser')
+    const storageUser = window.localStorage.getItem('loggedUser')
 
-    if (loggedUser) {
-      const user = JSON.parse(loggedUser)
-      blogService.setToken(user.token)
+    if (storageUser) {
+      const loggedUser = JSON.parse(storageUser)
+      dispatch(setLogin(loggedUser))
     }
   }, [])
-
-  const handleLogout = () => {
-    console.log('logout')
-    window.localStorage.removeItem('loggedUser')
-    window.location.reload()
-  }
-
-  const blogView = () => (
-    <div>
-      <Notification />
-
-      <p>
-        {user.username} logged in
-        <button type="button" id="logout-button" onClick={handleLogout}>
-          logout
-        </button>
-      </p>
-
-      <Togglable buttonLabel="New blog" ref={blogFormRef}>
-        <BlogForm />
-      </Togglable>
-
-      <BlogList />
-    </div>
-  )
 
   return (
     <div>
@@ -62,7 +38,16 @@ const App = () => {
           <LoginForm />
         </div>
       )}
-      {user !== null && blogView()}
+      {user !== null && (
+        <div>
+          <Notification />
+          <Header />
+          <Togglable buttonLabel="New blog" ref={blogFormRef}>
+            <BlogForm />
+          </Togglable>
+          <BlogList />
+        </div>
+      )}
     </div>
   )
 }
