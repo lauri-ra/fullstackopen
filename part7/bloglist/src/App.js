@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { initializeBlogs } from './reducers/blogReducer'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
@@ -7,13 +7,10 @@ import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import BlogList from './components/BlogList'
 import blogService from './services/blogs'
-import loginService from './services/login'
 import './index.css'
 
 const App = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
+  const user = useSelector((state) => state.login)
 
   const blogFormRef = useRef()
   const dispatch = useDispatch()
@@ -27,27 +24,9 @@ const App = () => {
 
     if (loggedUser) {
       const user = JSON.parse(loggedUser)
-      setUser(user)
       blogService.setToken(user.token)
     }
   }, [])
-
-  const handleLogin = async (event) => {
-    event.preventDefault()
-
-    try {
-      const user = await loginService.login({ username, password })
-
-      window.localStorage.setItem('loggedUser', JSON.stringify(user))
-
-      blogService.setToken(user.token)
-      setUser(user)
-      setUsername('')
-      setPassword('')
-    } catch (exception) {
-      console.log('error in handlelogin')
-    }
-  }
 
   const handleLogout = () => {
     console.log('logout')
@@ -80,13 +59,7 @@ const App = () => {
       {user === null && (
         <div>
           <Notification />
-          <LoginForm
-            handleLogin={handleLogin}
-            handleUsername={({ target }) => setUsername(target.value)}
-            handlePassword={({ target }) => setPassword(target.value)}
-            username={username}
-            password={password}
-          />
+          <LoginForm />
         </div>
       )}
       {user !== null && blogView()}
