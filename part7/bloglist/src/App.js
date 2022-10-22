@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeBlogs } from './reducers/blogReducer'
+import { initializeUsers } from './reducers/userReducer'
 import Notification from './components/Notification'
 import Header from './components/Header'
+import Users from './components/Users'
 import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
@@ -18,6 +20,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializeBlogs())
+    dispatch(initializeUsers())
   }, [dispatch])
 
   useEffect(() => {
@@ -46,6 +49,7 @@ const App = () => {
             <BlogForm />
           </Togglable>
           <BlogList />
+          <Users />
         </div>
       )}
     </div>
