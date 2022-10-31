@@ -11,6 +11,7 @@ import LoginForm from './components/LoginForm'
 import BlogList from './components/BlogList'
 import { setLogin } from './reducers/loginReducer'
 import './index.css'
+import blogService from './services/blogs'
 
 const App = () => {
   const user = useSelector((state) => state.login)
@@ -28,6 +29,7 @@ const App = () => {
 
     if (storageUser) {
       const loggedUser = JSON.parse(storageUser)
+      blogService.setToken(loggedUser.token)
       dispatch(setLogin(loggedUser))
     }
   }, [])
@@ -57,4 +59,3 @@ const App = () => {
 }
 
 export default App
-
