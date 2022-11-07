@@ -1,15 +1,18 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { vote, remove } from '../reducers/blogReducer'
 import { createNotification } from '../reducers/notificationReducer'
+import { useParams } from 'react-router-dom'
 
-const Blog = ({ blog }) => {
-  const [showDetails, setShowDetails] = useState(false)
-
+const Blog = () => {
   const dispatch = useDispatch()
 
-  const toggleVisibility = () => {
-    setShowDetails(!showDetails)
+  const id = useParams().id
+  const blog = useSelector((state) =>
+    state.blogs.find((blog) => blog.id === id)
+  )
+
+  if (!blog) {
+    return null
   }
 
   const permToRemove = () => {
@@ -38,44 +41,26 @@ const Blog = ({ blog }) => {
     }
   }
 
-  const simpleBlog = (
+  return (
     <div>
-      {blog.title} {blog.author}
-      <button onClick={toggleVisibility} id="view-button">
-        view
-      </button>
-    </div>
-  )
-
-  const detailedBlog = (
-    <div>
+      <h2>{blog.title}</h2>
+      <div>{blog.author}</div>
+      <div>{blog.url}</div>
       <div>
-        <div>
-          {blog.title} {blog.author}
-        </div>
-        <div>{blog.url}</div>
-        <div>
-          likes: {blog.likes}
-          <button onClick={handleLike} id="like-button">
-            like
-          </button>
-        </div>
-        <button onClick={toggleVisibility} id="hide-button">
-          hide
+        likes: {blog.likes}
+        <button onClick={handleLike} id="like-button">
+          like
         </button>
-        {permToRemove() ? (
-          <button onClick={handleRemove} id="remove-button">
-            remove
-          </button>
-        ) : (
-          ''
-        )}
       </div>
+      {permToRemove() ? (
+        <button onClick={handleRemove} id="remove-button">
+          remove
+        </button>
+      ) : (
+        ''
+      )}
     </div>
   )
-
-  return <div className="blog">{showDetails ? detailedBlog : simpleBlog}</div>
 }
 
 export default Blog
-

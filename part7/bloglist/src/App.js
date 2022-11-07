@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Routes, Route } from 'react-router-dom'
+
 import { initializeBlogs } from './reducers/blogReducer'
 import { initializeUsers } from './reducers/userReducer'
+import { setLogin } from './reducers/loginReducer'
+
 import Notification from './components/Notification'
 import Header from './components/Header'
 import Users from './components/Users'
@@ -10,10 +14,10 @@ import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import BlogList from './components/BlogList'
-import { setLogin } from './reducers/loginReducer'
-import './index.css'
+import Blog from './components/Blog'
+
 import blogService from './services/blogs'
-import { Routes, Route } from 'react-router-dom'
+import './index.css'
 
 const App = () => {
   const user = useSelector((state) => state.login)
@@ -57,6 +61,7 @@ const App = () => {
 
           <Routes>
             <Route path="/users/:id" element={<User />}></Route>
+            <Route path="/blogs/:id" element={<Blog />}></Route>
             <Route
               path="/"
               element={
