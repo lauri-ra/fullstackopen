@@ -21,17 +21,27 @@ const LoginForm = () => {
 
   return (
     <form>
-      <h2>Login to application</h2>
+      <h2 className="bold mt-2 mb-2 ml-1 text-lg">Login to application</h2>
 
-      <div>
+      <div className="m-1">
         username
-        <input {...username} />
+        <input
+          className="ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
+          {...username}
+        />
       </div>
-      <div>
+      <div className="m-1">
         password
-        <input {...password} />
+        <input
+          className="ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
+          {...password}
+        />
       </div>
-      <button onClick={handleLogin} id="login-button">
+      <button
+        className="my-1 mx-1 w-full rounded-lg bg-blue-600 px-4 py-1 text-center text-sm text-white hover:bg-blue-800 sm:w-auto"
+        onClick={handleLogin}
+        id="login-button"
+      >
         login
       </button>
     </form>
@@ -39,4 +49,3 @@ const LoginForm = () => {
 }
 
 export default LoginForm
-

@@ -4,5 +4,6 @@
   "semi": false,
   "singleQuote": true,
   "bracketSpacing": true,
-  "endOfLine": "crlf"
+  "endOfLine": "crlf",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

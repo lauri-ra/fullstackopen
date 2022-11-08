@@ -7,13 +7,16 @@ const BlogList = () => {
 
   return (
     <div>
-      <h2>bloglist</h2>
+      <h2 className="bold ml-1 mt-3 mb-2 text-2xl">Bloglist</h2>
       {blogList
         .sort((a, b) => b.likes - a.likes)
         .map((blog) => (
-          <div className="blog" key={blog.id}>
+          <div
+            className="my-1.5 ml-1 border-2 border-solid border-sky-400 py-1 pl-2 hover:border-dotted hover:bg-sky-50"
+            key={blog.id}
+          >
             <Link to={`/blogs/${blog.id}`}>
-              {blog.title} {blog.author}
+              {blog.title} by {blog.author}
             </Link>
           </div>
         ))}

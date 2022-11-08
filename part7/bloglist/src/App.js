@@ -41,7 +41,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>blogs</h1>
+      <h1 className="pb-4 pt-2 text-4xl font-bold">Blog app</h1>
       {user === null && (
         <div>
           <Notification />

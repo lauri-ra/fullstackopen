@@ -25,26 +25,45 @@ const BlogForm = () => {
 
   return (
     <div>
-      <h2>create new blog</h2>
+      <h2 className="mx-1 mt-3 mb-1 text-lg">Create new blog</h2>
 
       <form onSubmit={addBlog}>
-        <div>
+        <div className="mx-1 my-1">
           title
-          <input type="text" id="title" placeholder={'title'} />
+          <input
+            className="ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
+            type="text"
+            id="title"
+            placeholder={'title'}
+          />
         </div>
 
-        <div>
+        <div className="mx-1 my-1">
           author
-          <input type="text" id="author" placeholder={'author'} />
+          <input
+            className="ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
+            type="text"
+            id="author"
+            placeholder={'author'}
+          />
         </div>
 
-        <div>
+        <div className="mx-1 my-1">
           url
-          <input type="text" id="url" placeholder={'url'} />
+          <input
+            className="ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
+            type="text"
+            id="url"
+            placeholder={'url'}
+          />
         </div>
 
-        <button type="submit" id="create-button">
-          create
+        <button
+          className="my-1 mx-1 w-full rounded-lg bg-blue-600 px-4 py-1 text-center text-sm text-white hover:bg-blue-800 sm:w-auto"
+          type="submit"
+          id="create-button"
+        >
+          Create
         </button>
       </form>
     </div>
@@ -52,4 +71,3 @@ const BlogForm = () => {
 }
 
 export default BlogForm
-

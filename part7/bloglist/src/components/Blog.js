@@ -42,18 +42,26 @@ const Blog = () => {
   }
 
   return (
-    <div>
-      <h2>{blog.title}</h2>
-      <div>{blog.author}</div>
-      <div>{blog.url}</div>
-      <div>
+    <div className="ml-1 rounded-lg border-2">
+      <h2 className="mt-1 mb-2 text-lg">{blog.title}</h2>
+      <div className="my-0.5">{blog.author}</div>
+      <div className="my-0.5">{blog.url}</div>
+      <div className="my-0.5">
         likes: {blog.likes}
-        <button onClick={handleLike} id="like-button">
+        <button
+          className="my-0.5 mx-0.5 w-full rounded-lg bg-blue-600 px-4 py-1 text-center text-sm text-white hover:bg-blue-800 sm:w-auto"
+          onClick={handleLike}
+          id="like-button"
+        >
           like
         </button>
       </div>
       {permToRemove() ? (
-        <button onClick={handleRemove} id="remove-button">
+        <button
+          className="my-1 mx-1 w-full rounded-lg bg-red-600 px-4 py-1 text-center text-sm text-white hover:bg-red-800 sm:w-auto"
+          onClick={handleRemove}
+          id="remove-button"
+        >
           remove
         </button>
       ) : (

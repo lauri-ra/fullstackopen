@@ -12,12 +12,21 @@ const Menu = () => {
   }
 
   return (
-    <div className="menu">
-      <Link to={'/'}>Blogs</Link>
-      <Link to={'/users'}>Users</Link>
-      <div>
+    <div className="inline-block">
+      <Link className="mx-1 my-1 underline" to={'/'}>
+        Blogs
+      </Link>
+      <Link className="mx-1 my-1 underline" to={'/users'}>
+        Users
+      </Link>
+      <div className="mx-4 inline-block">
         {user.username} logged in
-        <button type="button" id="logout-button" onClick={handleLogout}>
+        <button
+          className="mx-1 w-full rounded-lg bg-red-400 px-1 py-0.5 text-center hover:bg-red-500 sm:w-auto"
+          type="button"
+          id="logout-button"
+          onClick={handleLogout}
+        >
           logout
         </button>
       </div>
