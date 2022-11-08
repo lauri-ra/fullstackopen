@@ -7,7 +7,6 @@ import { initializeUsers } from './reducers/userReducer'
 import { setLogin } from './reducers/loginReducer'
 
 import Notification from './components/Notification'
-import Header from './components/Header'
 import Users from './components/Users'
 import User from './components/User'
 import Togglable from './components/Togglable'
@@ -15,9 +14,9 @@ import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import BlogList from './components/BlogList'
 import Blog from './components/Blog'
+import Menu from './components/Menu'
 
 import blogService from './services/blogs'
-import './index.css'
 
 const App = () => {
   const user = useSelector((state) => state.login)
@@ -52,13 +51,7 @@ const App = () => {
       {user !== null && (
         <div>
           <Notification />
-          <Header />
-          {/* <Togglable buttonLabel="New blog" ref={blogFormRef}>
-            <BlogForm />
-          </Togglable> */}
-          {/* <BlogList /> */}
-          {/* <Users /> */}
-
+          <Menu />
           <Routes>
             <Route path="/users/:id" element={<User />}></Route>
             <Route path="/blogs/:id" element={<Blog />}></Route>
@@ -70,10 +63,10 @@ const App = () => {
                     <BlogForm />
                   </Togglable>
                   <BlogList />
-                  <Users />
                 </div>
               }
             ></Route>
+            <Route path="users" element={<Users />}></Route>
           </Routes>
         </div>
       )}

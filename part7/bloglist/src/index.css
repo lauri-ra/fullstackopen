@@ -25,3 +25,17 @@
   border-width: 1px;
   margin-bottom: 5px;
 }
+
+.menu {
+  display: inline-block;
+  background: lightgrey;
+}
+
+.menu > :link {
+  padding-right: 10px;
+  display: inline-block;
+}
+
+.menu > div {
+  display: inline-block;
+}
