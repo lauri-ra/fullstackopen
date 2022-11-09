@@ -18,6 +18,34 @@ blogsRouter.get("/:id", async (request, response) => {
   }
 });
 
+blogsRouter.get(":id/comments", async (request, response) => {
+  const blog = await Blog.findById(request.params.id);
+  const comments = blog.comments;
+
+  if (comments) {
+    response.json(comments.toJSON());
+  } else {
+    response.status(404).end();
+  }
+});
+
+blogsRouter.post("/:id/comments", async (request, response) => {
+  if (!request.body) {
+    return response.status(400).json({ error: "Comment body missing content" });
+  }
+
+  const { comment } = request.body;
+  const blog = await Blog.findById(request.params.id).populate("user", {
+    username: 1,
+    name: 1,
+  });
+
+  blog.comments = blog.comments.concat(comment);
+  const updatedBlog = await blog.save();
+
+  return response.status(201).json(updatedBlog);
+});
+
 blogsRouter.post("/", userExtractor, async (request, response) => {
   const body = request.body;
 
