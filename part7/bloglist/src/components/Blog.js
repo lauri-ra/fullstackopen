@@ -15,6 +15,8 @@ const Blog = () => {
     return null
   }
 
+  const comments = blog.comments
+
   const permToRemove = () => {
     const loggedUser = window.localStorage.getItem('loggedUser')
 
@@ -56,17 +58,41 @@ const Blog = () => {
           like
         </button>
       </div>
-      {permToRemove() ? (
+      <div>
+        {!blog.user ? (
+          ''
+        ) : (
+          <div className="inline-block">added by {blog.user.username}</div>
+        )}
+        {permToRemove() ? (
+          <button
+            className="my-1 mx-1 w-full rounded-lg bg-red-600 px-4 py-1 text-center text-sm text-white hover:bg-red-800 sm:w-auto"
+            onClick={handleRemove}
+            id="remove-button"
+          >
+            remove
+          </button>
+        ) : (
+          ''
+        )}
+      </div>
+      <div className="mt-5 text-lg">Comments</div>
+      <form onSubmit={console.log('comment')}>
+        <input
+          className="ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
+          type="text"
+          placeholder={'comment'}
+        ></input>
         <button
-          className="my-1 mx-1 w-full rounded-lg bg-red-600 px-4 py-1 text-center text-sm text-white hover:bg-red-800 sm:w-auto"
-          onClick={handleRemove}
-          id="remove-button"
+          className="my-1 mx-1 w-full rounded-lg bg-blue-600 px-4 py-1 text-center text-sm text-white hover:bg-blue-800 sm:w-auto"
+          type="submit"
         >
-          remove
+          Add comment
         </button>
-      ) : (
-        ''
-      )}
+      </form>
+      {comments.map((comment) => (
+        <div>{comment}</div>
+      ))}
     </div>
   )
 }
