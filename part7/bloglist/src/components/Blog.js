@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { vote, remove } from '../reducers/blogReducer'
+import { vote, remove, comment } from '../reducers/blogReducer'
 import { createNotification } from '../reducers/notificationReducer'
 import { useParams } from 'react-router-dom'
 
@@ -43,6 +43,11 @@ const Blog = () => {
     }
   }
 
+  const addComment = async (event) => {
+    event.preventDefault()
+    dispatch(comment(blog.id, event.target.comment.value))
+  }
+
   return (
     <div className="ml-1 rounded-lg border-2">
       <h2 className="mt-1 mb-2 text-lg">{blog.title}</h2>
@@ -76,11 +81,12 @@ const Blog = () => {
           ''
         )}
       </div>
-      <div className="mt-5 text-lg">Comments</div>
-      <form onSubmit={console.log('comment')}>
+      <div className="mt-5 ml-1 text-lg">Comments</div>
+      <form onSubmit={addComment}>
         <input
-          className="ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
+          className="mt-2 ml-1 rounded-lg border border-gray-300 bg-gray-50 p-0.5 text-sm text-gray-900"
           type="text"
+          id="comment"
           placeholder={'comment'}
         ></input>
         <button
@@ -91,7 +97,9 @@ const Blog = () => {
         </button>
       </form>
       {comments.map((comment) => (
-        <div>{comment}</div>
+        <li key={Math.random()} className="ml-1 mt-2">
+          {comment}
+        </li>
       ))}
     </div>
   )
