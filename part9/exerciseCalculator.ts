@@ -50,11 +50,11 @@ const calculateExercises = (params: Array<number>, target: number): Excercise =>
     return result;
 }
 
-const params = [3, 0, 2, 4.5, 0, 3, 1];
-calculateExercises(params, 2);
+// const params = [3, 0, 2, 4.5, 0, 3, 1];
+// calculateExercises(params, 2);
 
-const params2 = [3, 0, 2, 4.5, 0, 3, 1];
-calculateExercises(params2, 6);
+// const params2 = [3, 0, 2, 4.5, 0, 3, 1];
+// calculateExercises(params2, 6);
 
-const params3 = [3, 5, 2, 4.5, 4, 3, 1];
-calculateExercises(params3, 2);
+// const params3 = [3, 5, 2, 4.5, 4, 3, 1];
+// calculateExercises(params3, 2);
