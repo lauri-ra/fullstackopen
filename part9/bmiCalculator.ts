@@ -3,7 +3,7 @@ const calculateBmi = (height: number, weight: number): string => {
 
     if(result < 18.5) {
         return 'Underweight';
-    } 
+    }
     else if(result >= 18.5 && result < 25) {
         return 'Normal (healthy weight)';
     }
