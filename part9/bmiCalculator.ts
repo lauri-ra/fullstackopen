@@ -13,23 +13,7 @@ const calculateBmi = (height: number, weight: number): string => {
     else if(result > 30) {
         return 'Obese';
     }
+    else return 'undefined';
 }
 
-const callBmiFunction = (args: Array<String>) => {
-    if(args.length < 4) throw new Error('Missing arguments');
-    if(args.length > 4) throw new Error('Too many arguments');
-
-    if(!isNaN(Number(process.argv[2])) || !isNaN(Number(process.argv[3]))) {
-        const height = Number(process.argv[2]);
-        const weight = Number(process.argv[3]);
-
-        console.log(calculateBmi(height, weight));
-    }
-    else throw new Error('Arguments are not numbers!');
-
-}
-
-// console.log(calculateBmi(165, 68));
-// console.log(calculateBmi(180, 74));
-
-callBmiFunction(process.argv);
+export { calculateBmi };
