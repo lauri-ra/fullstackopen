@@ -3,7 +3,7 @@ interface Excercise {
     trainingDays: number;
     success: boolean;
     rating: number;
-    ratingDescription: String;
+    ratingDescription: string;
     target: number;
     average: number;
 }
@@ -12,10 +12,10 @@ const calculateExercises = (params: Array<number>, target: number): Excercise =>
     const periodLength: number = params.length;
     const trainingDays: number = params.filter(value => value > 0).length;
 
-    const initialValue: number = 0;
+    const initialValue = 0;
     const totalHours: number = params.reduce(
         (prev, current) => prev + current, initialValue
-    )
+    );
     const average: number = totalHours / periodLength;
 
     const success: boolean = average < target ? false : true;
@@ -48,9 +48,9 @@ const calculateExercises = (params: Array<number>, target: number): Excercise =>
 
     console.log(result);
     return result;
-}
+};
 
-const callCalFunction = (args: Array<String>) => {
+const callCalFunction = (args: Array<string>) => {
     if(args.length < 3) throw new Error('Missing arguments');
 
     let target: number;
@@ -59,8 +59,8 @@ const callCalFunction = (args: Array<String>) => {
     }
     else throw new Error('Target must be a number');
 
-    let params: Array<number> = [];
-    const data: Array<String> = args.slice(3);
+    const params: Array<number> = [];
+    const data: Array<string> = args.slice(3);
     
     data.forEach(num => {
         if(!isNaN(Number(num))) {
@@ -72,7 +72,7 @@ const callCalFunction = (args: Array<String>) => {
     });
     
     calculateExercises(params, target);
-}
+};
 
 callCalFunction(process.argv);
 
