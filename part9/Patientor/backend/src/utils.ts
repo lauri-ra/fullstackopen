@@ -1,4 +1,4 @@
-import { newPatient } from "./types";
+import { newPatient, Gender } from "./types";
 
 type Fields = {
     name: unknown,
@@ -12,15 +12,29 @@ const isString = (text: unknown): text is string  => {
     return typeof text === 'string' || text instanceof String;
 };
 
+const isDate = (date: string): boolean => {
+    return Boolean(Date.parse(date));
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isGender = (param: any): param is Gender => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return Object.values(Gender).includes(param);
+};
+
+const parseGender = (gender: unknown) => {
+    if(!gender || !isGender(gender)) {
+        throw new Error('Incorrect or missing gender');
+    }
+    
+    return gender;
+};
+ 
 const parseString = (variable: unknown): string => {
     if(!variable || !isString(variable)) {
         throw new Error('Incorrect parameter');
     }
     else return variable;
-};
-
-const isDate = (date: string): boolean => {
-    return Boolean(Date.parse(date));
 };
 
 const parseDate = (date: unknown): string => {
@@ -35,7 +49,7 @@ const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation } : Fiel
         name: parseString(name),
         dateOfBirth: parseDate(dateOfBirth),
         ssn: parseString(ssn),
-        gender: parseString(gender),
+        gender: parseGender(gender),
         occupation: parseString(occupation)
     };
 
