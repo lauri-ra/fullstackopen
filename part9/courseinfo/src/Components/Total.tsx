@@ -1,6 +1,6 @@
-import { ContentProps } from "../types";
+import { CoursePart } from "../types";
 
-const Total = ({ parts }: {parts: ContentProps[]}) => {
+const Total = ({ parts }: {parts: CoursePart[]}) => {
     return (
         <div>
             <p>
