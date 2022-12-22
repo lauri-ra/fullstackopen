@@ -5,7 +5,18 @@ import toNewPatientEntry from '../utils';
 const router = express.Router();
 
 router.get('/', (_request, response) => {
-    response.send(patientService.getNonSensitivePatientData());
+    response.send(patientService.getPublicPatientData());
+});
+
+router.get('/:id', (request, response) => {
+    const patient = patientService.getPatientById(request.params.id);
+
+    if(patient) {
+        response.send(patient);
+    }
+    else {
+        response.send().status(400);
+    }
 });
 
 router.post('/', (request, response) => {
